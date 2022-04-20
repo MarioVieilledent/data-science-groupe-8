@@ -1,0 +1,10 @@
+.Content {
+  height: 100%;
+  width: 100%;
+  padding: 12px;
+
+  .list {
+    display: flex;
+    flex-direction: column;
+  }
+}
