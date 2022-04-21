@@ -1,7 +1,7 @@
 import React from 'react';
-import './Nav.scss';
+import './About.scss';
 
-class Nav extends React.Component {
+class About extends React.Component {
   state: any;
 
   constructor(props: any) {
@@ -13,11 +13,11 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <div className="Nav">
+      <div className="about flex-col">
         <span>{this.state.item}</span>
       </div>
     )
   }
 }
 
-export default Nav;
+export default About;

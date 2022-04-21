@@ -1,16 +1,47 @@
 $nav-height: 50px;
 
-.App {
+/* Colors from Discord */
+
+$color-1: #202225;
+$color-2: #2f3136;
+$color-3: #36393f;
+$color-4: #40444b;
+
+.app {
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
 
   .header {
+    background-color: $color-1;
+    justify-content: center;
     height: $nav-height;
+    width: 100%;
+
+    .nav {
+      .nav-button {
+        background-color: $color-2;
+        height: 100%;
+        transition: all 0.2s ease-in-out;
+
+        .nav-link {
+          width: 100%;
+          height: 100%;
+          padding: 0px 18px;
+          align-items: center;
+          text-decoration: none;
+          color: white;
+        }
+      }
+
+      .nav-button:hover {
+        background-color: $color-4;
+      }
+    }
   }
 
   .content {
+    background-color: $color-3;
     height: calc(100% - $nav-height);
+    overflow-y: auto;
   }
 }

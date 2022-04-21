@@ -1,7 +1,7 @@
 import React from 'react';
-import './Content.scss';
+import './Fetch.scss';
 
-class Content extends React.Component {
+class Fetch extends React.Component {
   state: any;
 
   constructor(props: any) {
@@ -41,9 +41,9 @@ class Content extends React.Component {
     let list = this.state.list;
 
     return (
-      <div className="Content">
+      <div className="fetch">
         <button onClick={() => this.testFetch()}>Fetch</button>
-        <div className="list">
+        <div className="list flex-col">
           {list}
         </div>
       </div>
@@ -57,4 +57,4 @@ interface Doc {
   uri_s: string;
 }
 
-export default Content;
+export default Fetch;
