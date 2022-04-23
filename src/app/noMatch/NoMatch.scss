@@ -1,7 +1,9 @@
+$space: 12px;
+
 .fetch {
   height: 100%;
   width: 100%;
-  padding: 12px;
+  padding: $space;
 
   .list {
     display: flex;

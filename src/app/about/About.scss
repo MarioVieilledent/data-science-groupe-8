@@ -1,2 +1,42 @@
+$space: 12px;
+$border-radius: 6px;
+
+$image-width: 72px;
+
 .about {
+    padding: $space;
+    justify-content: center;
+
+    .block {
+        margin: $space 0px;
+        max-width: 1000px;
+
+        .left {
+            .logo {
+                width: $image-width;
+                margin-right: $space;
+                border-radius: $border-radius;
+            }
+        }
+
+        .right {
+            flex-direction: column;
+
+            .title {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+
+            .paragraph {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+
+            .indent {
+                margin-left: $space;
+                list-style-type: disc;
+                list-style: square;
+            }
+        }
+    }
 }
