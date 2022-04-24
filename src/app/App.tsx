@@ -4,6 +4,7 @@ import Home from './home/Home';
 import About from './about/About';
 import Fetch from './fetch/Fetch';
 import FetchGoogleScholar from './fetchGoogleScholar/FetchGoogleScholar';
+import FetchHAL from './fetchHAL/FetchHAL';
 import NoMatch from './noMatch/NoMatch';
 import {
   BrowserRouter as Router,
@@ -11,6 +12,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import localStorageService from './localStoageService';
 
 /**
  * Pour ajouter un page
@@ -20,56 +22,57 @@ import {
  */
 
 const selectedColor = '#cf7417';
-const localStoragePage = 'currentPage';
 
-class App extends React.Component {
+class App extends React.Component<Props, State>{
 
-  state: any;
+  state: Readonly<State>;
 
-  pages: Page[] = [
-    {
-      component: Home,
-      componentName: 'Home',
-      path: '/'
-    }, {
-      component: About,
-      componentName: 'About',
-      path: 'about'
-    }, {
-      component: Fetch,
-      componentName: 'Fetch',
-      path: 'fetch'
-    }, {
-      component: FetchGoogleScholar,
-      componentName: 'FetchGoogleScholar',
-      path: 'fetchGoogleScholar'
-    }
-  ];
-
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props);
 
+    // Création de l'objet state de type State
     this.state = {
-      selectedPage: ''
-    }
-
-    const cp = window.localStorage.getItem(localStoragePage);
-    cp ? this.state.selectedPage = cp : this.state.selectedPage = this.pages[0].component;
+      selectedPage: window.localStorage.getItem(localStorageService.currentPage) || '/',
+      pages: [
+        {
+          component: Home,
+          componentName: 'Home',
+          path: '/'
+        }, {
+          component: About,
+          componentName: 'About',
+          path: 'about'
+        }, {
+          component: Fetch,
+          componentName: 'Fetch',
+          path: 'fetch'
+        }, {
+          component: FetchGoogleScholar,
+          componentName: 'FetchGoogleScholar',
+          path: 'fetchGoogleScholar'
+        }, {
+          component: FetchHAL,
+          componentName: 'FetchHAL',
+          path: 'fetchHAL'
+        }
+      ]
+    };
   }
 
-  selectNav(page: string) {
-    window.localStorage.setItem(localStoragePage, page);
+  selectNav(page: string): void {
+    window.localStorage.setItem(localStorageService.currentPage, page);
     this.setState({
       selectedPage: page
     });
   }
 
-  render() {
-    const navButtonList: JSX.Element[] = this.pages.map((page: Page) => {
+  render(): JSX.Element {
+    const state: Readonly<State> = this.state;
+    const navButtonList: JSX.Element[] = state.pages.map((page: Page) => {
       return (
         <div className="nav-button" key={page.componentName}>
           <Link
-            style={{ 'backgroundColor': this.state.selectedPage === page.componentName ? selectedColor : '' }}
+            style={{ 'backgroundColor': state.selectedPage === page.componentName ? selectedColor : '' }}
             className="nav-link flex"
             to={page.path}
             onClick={() => this.selectNav(page.componentName)}>{page.componentName}
@@ -77,7 +80,7 @@ class App extends React.Component {
         </div>
       );
     });
-    const routeList: JSX.Element[] = this.pages.map((page: Page) => {
+    const routeList: JSX.Element[] = state.pages.map((page: Page) => {
       return (
         <Route
           path={page.path}
@@ -106,10 +109,19 @@ class App extends React.Component {
   }
 }
 
+interface State {
+  selectedPage: string;
+  pages: Page[];
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Props { }
+
 interface Page {
-  component: any,
-  componentName: string,
-  path: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component: any;
+  componentName: string;
+  path: string;
 }
 
 export default App;

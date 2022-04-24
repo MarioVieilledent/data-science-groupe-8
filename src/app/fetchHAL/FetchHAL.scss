@@ -1,0 +1,43 @@
+$space: 12px;
+$border-radius: 6px;
+
+.container {
+    padding: $space;
+
+    .block {
+        padding: 6px 0px 6px $space;
+        border-left: 1px solid #999;
+
+        .title-description {
+            font-size: 17px;
+            margin-bottom: $space;
+            color: #ddd;
+        }
+
+        .portail-instances-list {
+            max-height: 200px;
+            overflow-y: auto;
+
+            .doc-elem {
+                align-items: center;
+                margin-bottom: 6px;
+                color: #ddd;
+
+                .code {
+                    font-size: 14px;
+                    margin-right: $space;
+                }
+
+                .url {
+                    font-size: 13px;
+                    text-decoration: none;
+                    margin-right: $space;
+                }
+
+                .name {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}

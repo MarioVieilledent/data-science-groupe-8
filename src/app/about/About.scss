@@ -25,17 +25,20 @@ $image-width: 72px;
             .title {
                 font-size: 22px;
                 margin-bottom: 10px;
+                color: white;
             }
 
             .paragraph {
                 font-size: 13px;
                 margin-bottom: 8px;
+                color: #ddd;
             }
 
             .indent {
                 margin-left: $space;
                 list-style-type: disc;
                 list-style: square;
+                color: #ddd;
             }
         }
     }

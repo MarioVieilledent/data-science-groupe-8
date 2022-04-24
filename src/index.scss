@@ -1,3 +1,13 @@
+/* Variables scss */
+
+$border-radius: 6px;
+
+$color-1: #202225;
+$color-2: #2f3136;
+$color-3: #36393f;
+$color-4: #40444b;
+$color-5: #4e535c;
+
 /* Style général */
 
 * {
@@ -20,6 +30,27 @@ body {
 #root {
   height: 100%;
   width: 100%;
+}
+
+/* Style des button, input, etc. */
+
+button,
+input,
+textarea {
+  background-color: $color-4;
+  color: #eee;
+  border-radius: $border-radius;
+  border: none;
+  outline: none;
+  padding: 3px 6px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: $color-5;
 }
 
 /* Syle des classes génériques */

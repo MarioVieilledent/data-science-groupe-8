@@ -6,7 +6,7 @@ class NoMatch extends React.Component {
     return (
       <div>
         <span>Page inexistante.</span>
-        <a href="/">Revenir à la page d'acceuil</a>
+        <a href="/">Revenir à la page d&apos;acceuil</a>
       </div>
     )
   }

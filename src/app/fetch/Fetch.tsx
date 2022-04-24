@@ -17,7 +17,7 @@ class Fetch extends React.Component {
 
     httpService('https://api.archives-ouvertes.fr/search/', (data: any) => {
       console.log(data);
-      let list: JSX.Element[] = [];
+      const list: JSX.Element[] = [];
       data.response.docs.forEach((doc: Doc) => {
         list.push(
           <div className="block" key={doc.docid}>
@@ -35,7 +35,7 @@ class Fetch extends React.Component {
   }
 
   render() {
-    let list = this.state.list;
+    const list = this.state.list;
 
     return (
       <div className="fetch">
