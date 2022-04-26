@@ -14,32 +14,56 @@ $color-4: #40444b;
 
   .header {
     background-color: $color-1;
-    justify-content: center;
+    justify-content: space-between;
     height: $nav-height;
     width: 100%;
 
-    .nav {
-      .nav-button {
-        background-color: $color-2;
-        height: 100%;
+    .left {
+      align-items: center;
+      padding-left: $space;
+      color: #ccc;
+    }
 
-        .nav-link {
-          width: 100%;
+    .center {
+      .nav {
+        .nav-button {
+          background-color: $color-2;
           height: 100%;
-          padding: 0px 18px;
-          align-items: center;
-          text-decoration: none;
-          transition: all 0.2s ease-in-out;
-          color: white;
-        }
 
-        .nav-link:hover {
-          background-color: $color-4;
-        }
+          .nav-link {
+            width: 100%;
+            height: 100%;
+            padding: 0px 18px;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.1s ease-in-out;
+            color: white;
+          }
 
-        .nav-selected {
-          background-color: orange;
+          .nav-link:hover {
+            background-color: $color-4;
+          }
+
+          .nav-selected {
+            background-color: orange;
+          }
         }
+      }
+    }
+
+    .right {
+      align-items: center;
+      padding-right: $space;
+      color: #ccc;
+
+      .header-link-button {
+        height: 26px;
+        width: 26px;
+        cursor: pointer;
+      }
+      .header-logo {
+        height: 100%;
+        width: 100%;
       }
     }
   }

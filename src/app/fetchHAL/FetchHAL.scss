@@ -1,8 +1,23 @@
 $space: 12px;
 $border-radius: 6px;
 
+$search-input-height: 30px;
+
 .container {
     padding: $space;
+
+    .search-div {
+        width: 100%;
+        height: $search-input-height;
+        margin: $space 0px $space 0px;
+
+        .search-input {
+            height: 100%;
+            width: 100%;
+            padding: 0px 10px 0px 10px;
+            border-radius: $search-input-height;
+        }
+    }
 
     .block {
         padding: 6px 0px 6px $space;
@@ -15,7 +30,7 @@ $border-radius: 6px;
         }
 
         .portail-instances-list {
-            max-height: 200px;
+            max-height: 600px;
             overflow-y: auto;
 
             .doc-elem {

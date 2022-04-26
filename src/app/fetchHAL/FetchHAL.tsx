@@ -17,7 +17,12 @@ class FetchHAL extends React.Component<Props, State>{
 
     // Création de l'objet state de type State
     this.state = {
-      portailInstancesList: []
+      portailInstancesList: [],
+      apiMaker: {
+        q: '*',
+        wt: 'json',
+        rows: '100'
+      }
     }
 
     // Au démarrage, récupère la liste des instances
@@ -52,6 +57,10 @@ class FetchHAL extends React.Component<Props, State>{
   }
 
   /**
+   * Compile les éléments de state.apiMaker pour créer l'URL
+   */
+
+  /**
    * Construit la liste JSX.Element des instances de portail
    */
   buildProtailInstanceList(list: Doc[]) {
@@ -68,7 +77,11 @@ class FetchHAL extends React.Component<Props, State>{
 
   render() {
     return (
-      <div className="container flex">
+      <div className="container flex-col">
+        <a href="https://api.archives-ouvertes.fr/docs/search" target="_blank" rel="noreferrer">API HAL</a>
+        <div className="search-div">
+          <input className="search-input" type="text" onChange={(e: any) => { console.log(e.target.value) }} />
+        </div>
         <div className="block flex-col">
           <span className="title-description">Instances de portail</span>
           <div className="portail-instances-list flex-col">
@@ -90,6 +103,7 @@ interface Doc {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface State {
   portailInstancesList: JSX.Element[];
+  apiMaker: any;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

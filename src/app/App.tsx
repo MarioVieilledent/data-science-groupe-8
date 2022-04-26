@@ -13,6 +13,7 @@ import {
   Link
 } from "react-router-dom";
 import localStorageService from './localStoageService';
+import GitHubLogo from '../assets/svg/GitHub.svg';
 
 /**
  * Pour ajouter un page
@@ -21,7 +22,7 @@ import localStorageService from './localStoageService';
  * 3) Ajouter un élément dans la liste page: Pages[]
  */
 
-const selectedColor = '#cf7417';
+const selectedColor = '#4a4e55';
 
 class App extends React.Component<Props, State>{
 
@@ -36,22 +37,27 @@ class App extends React.Component<Props, State>{
       pages: [
         {
           component: Home,
+          title: 'Menu',
           componentName: 'Home',
           path: '/'
         }, {
           component: About,
+          title: 'Infos',
           componentName: 'About',
           path: 'about'
         }, {
           component: Fetch,
+          title: 'Test récup.',
           componentName: 'Fetch',
           path: 'fetch'
         }, {
           component: FetchGoogleScholar,
+          title: 'Google Scholar',
           componentName: 'FetchGoogleScholar',
           path: 'fetchGoogleScholar'
         }, {
           component: FetchHAL,
+          title: 'HAL',
           componentName: 'FetchHAL',
           path: 'fetchHAL'
         }
@@ -75,7 +81,8 @@ class App extends React.Component<Props, State>{
             style={{ 'backgroundColor': state.selectedPage === page.componentName ? selectedColor : '' }}
             className="nav-link flex"
             to={page.path}
-            onClick={() => this.selectNav(page.componentName)}>{page.componentName}
+            onClick={() => this.selectNav(page.componentName)}>
+            {page.title}
           </Link>
         </div>
       );
@@ -93,9 +100,19 @@ class App extends React.Component<Props, State>{
       <div className="app flex-col" >
         <Router>
           <div className="header flex">
-            <nav className="nav flex">
-              {navButtonList}
-            </nav>
+            <div className="left flex">
+              <h1>Titre</h1>
+            </div>
+            <div className="center flex">
+              <nav className="nav flex">
+                {navButtonList}
+              </nav>
+            </div>
+            <div className="right flex">
+              <a className="header-link-button" href="https://github.com/MarioVieilledent/data-science-groupe-8" rel="noreferrer" target="_blank">
+                <img className="header-logo" src={GitHubLogo} alt="Lien GitHub" />
+              </a>
+            </div>
           </div>
           <div className="content">
             <Routes>
@@ -104,7 +121,7 @@ class App extends React.Component<Props, State>{
             </Routes>
           </div>
         </Router >
-      </div >
+      </div>
     );
   }
 }
@@ -119,9 +136,10 @@ interface Props { }
 
 interface Page {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: any;
-  componentName: string;
-  path: string;
+  component: any; // Composant React
+  title: string; // Titre affiché dans les boutons de navigation
+  componentName: string; // Nom du component
+  path: string; // Chemin d'accès au component
 }
 
 export default App;
