@@ -5,6 +5,7 @@ $search-input-height: 30px;
 
 .container {
     padding: $space;
+    height: 100%;
 
     .search-div {
         width: 100%;
@@ -13,7 +14,7 @@ $search-input-height: 30px;
 
         .search-input {
             height: 100%;
-            width: 100%;
+            width: 50%;
             padding: 0px 10px 0px 10px;
             border-radius: $search-input-height;
         }
@@ -22,6 +23,7 @@ $search-input-height: 30px;
     .block {
         padding: 6px 0px 6px $space;
         border-left: 1px solid #999;
+        height: calc(100% - $search-input-height);
 
         .title-description {
             font-size: 17px;
@@ -29,8 +31,7 @@ $search-input-height: 30px;
             color: #ddd;
         }
 
-        .portail-instances-list,
-        .scientific-publication-list {
+        .portail-instances-list {
             max-height: 300px;
             overflow-y: auto;
 
@@ -53,6 +54,19 @@ $search-input-height: 30px;
                 .name {
                     font-size: 13px;
                 }
+            }
+        }
+
+
+        .scientific-publication-list {
+            max-height: 100%;
+            overflow-y: auto;
+
+            .doc-elem {
+                height: 72px;
+                color: #ddd;
+
+                .B {}
             }
         }
     }

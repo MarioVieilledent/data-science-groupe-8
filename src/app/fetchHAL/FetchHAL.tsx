@@ -8,6 +8,26 @@ const entryPoints = {
   portailInstances: 'https://api.archives-ouvertes.fr/ref/instance'
 }
 
+const fl = [
+  'abstract_s',
+  'city_s',
+  'conferenceEndDate_tdate',
+  'conferenceStartDate_tdate',
+  'country_s',
+  'docid',
+  'doiId_s',
+  'keyword_s',
+  'label_s',
+  'language_s',
+  'licence_s',
+  'producedDate_tdate',
+  'releasedDate_tdate',
+  'scientificEditor_s',
+  'serie_s',
+  'title_s',
+  'uri_s',
+];
+
 class FetchHAL extends React.Component<Props, State>{
 
   state: Readonly<State>;
@@ -22,7 +42,8 @@ class FetchHAL extends React.Component<Props, State>{
       apiMaker: {
         q: '*',
         wt: 'json',
-        rows: '100'
+        rows: '100',
+        fl: fl.join(',') // Champs à retourner
       }
     }
 
@@ -80,9 +101,9 @@ class FetchHAL extends React.Component<Props, State>{
     httpService(url, (data: any) => {
       console.log(data.response.docs)
       scientificPublicationList = this.buildScientificPublicationList(data.response.docs);
+      this.setState({ scientificPublicationList: scientificPublicationList });
     });
 
-    this.setState({ scientificPublicationList: scientificPublicationList });
   }
 
   /**
@@ -103,12 +124,29 @@ class FetchHAL extends React.Component<Props, State>{
   /**
    * Construit la liste JSX.Element des instances de portail
    */
-  buildScientificPublicationList(list: ScientificPublication[]) {
-    return list.map((doc: ScientificPublication) => {
+  buildScientificPublicationList(list: any[]) {
+    return list.map((doc: any) => {
       return (
         <div className="doc-elem flex" key={doc.docid}>
-          <button title="Ouvrir document" className="code">{doc.label_s}</button>
-          <a className="url" href={doc.uri_s}>Link</a>
+          <div className="A">
+
+          </div>
+          <div className="B flex-col">
+            <div className="up">
+              <span>{doc.title_s[0]}</span>
+            </div>
+            <div className="down">
+              {
+                doc.keyword_s?.map((kw: string, index: number) => { return <div key={index}>{kw}</div> })
+              }
+            </div>
+          </div>
+          <div className="C">
+            <pre>{doc.abstract_s?.join('\n')}</pre>
+          </div>
+          <div className="D">
+            <a className="url" href={doc.uri_s}>Link</a>
+          </div>
         </div>
       )
     });
@@ -117,8 +155,8 @@ class FetchHAL extends React.Component<Props, State>{
   render() {
     return (
       <div className="container flex-col">
-        <a href="https://api.archives-ouvertes.fr/docs/search" target="_blank" rel="noreferrer">API HAL</a>
         <div className="search-div">
+          <a href="https://api.archives-ouvertes.fr/docs/search" target="_blank" rel="noreferrer">API HAL</a>
           <input className="search-input" type="text" onChange={(e: any) => {
             this.setState((prev: any) => {
               const apiMaker = Object.assign({}, prev.apiMaker);
@@ -127,12 +165,6 @@ class FetchHAL extends React.Component<Props, State>{
             })
           }} />
           <button onClick={() => { this.fetchHAL(); }}>Rechercher</button>
-        </div>
-        <div className="block flex-col">
-          <span className="title-description">Instances de portail</span>
-          <div className="portail-instances-list flex-col">
-            {this.state.portailInstancesList}
-          </div>
         </div>
         <div className="block flex-col">
           <span className="title-description">Résultat de recherche</span>
@@ -150,12 +182,6 @@ interface Doc {
   id: string;
   name: string;
   url: string;
-}
-
-interface ScientificPublication {
-  docid: string;
-  label_s: string;
-  uri_s: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
