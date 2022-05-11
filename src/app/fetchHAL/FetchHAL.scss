@@ -29,8 +29,9 @@ $search-input-height: 30px;
             color: #ddd;
         }
 
-        .portail-instances-list {
-            max-height: 600px;
+        .portail-instances-list,
+        .scientific-publication-list {
+            max-height: 300px;
             overflow-y: auto;
 
             .doc-elem {
