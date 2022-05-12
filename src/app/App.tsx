@@ -89,7 +89,7 @@ class App extends React.Component<Props, State>{
         <Router>
           <div className="header flex">
             <div className="left flex">
-              <h1>Titre</h1>
+              <h1>Science Hub</h1>
             </div>
             <div className="center flex">
               <nav className="nav flex">

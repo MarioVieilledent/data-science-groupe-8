@@ -7,7 +7,8 @@ import Moment from 'moment';
 
 const entryPoints = {
   root: 'http://api.archives-ouvertes.fr/search',
-  portailInstances: 'https://api.archives-ouvertes.fr/ref/instance'
+  portailInstances: 'https://api.archives-ouvertes.fr/ref/instance',
+  doi: 'https://dx.doi.org/'
 }
 
 const fl = [
@@ -42,6 +43,7 @@ class FetchHAL extends React.Component<Props, State>{
 
     // Création de l'objet state de type State
     this.state = {
+      searching: false,
       portailInstancesList: [],
       scientificPublicationList: [],
       apiMaker: {
@@ -87,26 +89,35 @@ class FetchHAL extends React.Component<Props, State>{
    * Compile les éléments de state.apiMaker pour créer l'URL
    */
   buildUrl(): string {
-    let url = entryPoints.root + '?';
-    const list = []
-    for (const [key, value] of Object.entries(this.state.apiMaker)) {
-      list.push(key + '=' + value);
-    }
-    url += list.join('&');
-    return url;
+    return (
+      entryPoints.root +
+      '?' +
+      Object.entries(this.state.apiMaker)
+        .map((
+          [key, value]) => {
+          return key + '=' + value
+        }).
+        join('&'));
   }
 
   /**
    * Constuit l'url et effectue une recherche ur l'API de HAL
    */
   fetchHAL(): void {
+    this.setState({
+      searching: true
+    });
+
     let scientificPublicationList: JSX.Element[] = [];
     const url = this.buildUrl();
 
     httpService(url, (data: any) => {
       console.log(data.response.docs)
       scientificPublicationList = this.buildScientificPublicationList(data.response.docs);
-      this.setState({ scientificPublicationList: scientificPublicationList });
+      this.setState({
+        searching: false,
+        scientificPublicationList: scientificPublicationList
+      });
     });
 
   }
@@ -158,6 +169,7 @@ class FetchHAL extends React.Component<Props, State>{
           <div className="C flex-col">
             <a className="button" target="_blank" rel="noreferrer" href={doc.uri_s}>HAL</a>
             <a className="button" target="_blank" rel="noreferrer" href={`https://hal.archives-ouvertes.fr/${doc.halId_s}/document`}>PDF</a>
+            <a className="button" target="_blank" rel="noreferrer" href={`${entryPoints.doi}${doc.doiId_s}`}>DOI</a>
           </div>
         </div>
       )
@@ -178,11 +190,16 @@ class FetchHAL extends React.Component<Props, State>{
           }} />
           <button className="search-button" onClick={() => { this.fetchHAL(); }}>Rechercher</button>
         </div>
-        <div className="block flex-col">
-          <div className="scientific-publication-list flex-col">
-            {this.state.scientificPublicationList}
-          </div>
-        </div>
+        {
+          this.state.searching ?
+            <span className="lazy-load">Récupération des données...</span>
+            :
+            <div className="block flex-col">
+              <div className="scientific-publication-list flex-col">
+                {this.state.scientificPublicationList}
+              </div>
+            </div>
+        }
       </div>
     )
   }
@@ -197,6 +214,7 @@ interface Doc {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface State {
+  searching: boolean,
   portailInstancesList: JSX.Element[];
   scientificPublicationList: JSX.Element[];
   apiMaker: any;

@@ -22,6 +22,7 @@ $color-4: #40444b;
       align-items: center;
       padding-left: $space;
       color: #ccc;
+      width: 208px;
     }
 
     .center {
@@ -52,6 +53,8 @@ $color-4: #40444b;
     }
 
     .right {
+      width: 208px;
+      justify-content: flex-end;
       align-items: center;
       padding-right: $space;
       color: #ccc;
@@ -73,5 +76,24 @@ $color-4: #40444b;
     background-color: $color-3;
     height: calc(100% - $nav-height);
     overflow-y: auto;
+  }
+}
+
+@media screen and (max-width: 725px) {
+  .app {
+
+    .header {
+      justify-content: center;
+
+      .left {
+        display: none;
+      }
+
+      .center {}
+
+      .right {
+        display: none;
+      }
+    }
   }
 }
