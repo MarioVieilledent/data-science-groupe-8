@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react';
 import httpService from '../http-service';
 import localStorageService from '../localStoageService';
 import './FetchHAL.scss';
+import Moment from 'moment';
 
 const entryPoints = {
   root: 'http://api.archives-ouvertes.fr/search',
@@ -16,6 +18,7 @@ const fl = [
   'country_s',
   'docid',
   'doiId_s',
+  'instStructCountry_s',
   'keyword_s',
   'label_s',
   'language_s',
@@ -24,8 +27,9 @@ const fl = [
   'releasedDate_tdate',
   'scientificEditor_s',
   'serie_s',
+  'structCountry_s',
   'title_s',
-  'uri_s',
+  'uri_s'
 ];
 
 class FetchHAL extends React.Component<Props, State>{
@@ -129,23 +133,30 @@ class FetchHAL extends React.Component<Props, State>{
       return (
         <div className="doc-elem flex" key={doc.docid}>
           <div className="A">
-
+            {
+              doc.structCountry_s ? <img title={doc.structCountry_s} src={require(`../../assets/flag-icons-main/flags/1x1/${doc.structCountry_s[0]}.svg`)} alt="Icône du pays d'origine de la publication scientifique" /> : (
+                doc.instStructCountry_s ? <img title={doc.instStructCountry_s} src={require(`../../assets/flag-icons-main/flags/1x1/${doc.instStructCountry_s[0]}.svg`)} alt="Icône du pays d'origine de la publication scientifique" /> : ''
+              )
+            }
           </div>
           <div className="B flex-col">
             <div className="up">
               <span>{doc.title_s[0]}</span>
             </div>
             <div className="down">
-              {
-                doc.keyword_s?.map((kw: string, index: number) => { return <div key={index}>{kw}</div> })
-              }
+              <div>
+                {
+                  doc.keyword_s?.map((kw: string, index: number) => { return <span className="key-word" key={index}>{kw}</span> })
+                }
+              </div>
+              <div>
+                <span className="release-date">{Moment(doc.releasedDate_tdate).format('MMMM YYYY')}</span>
+              </div>
             </div>
           </div>
           <div className="C">
-            <pre>{doc.abstract_s?.join('\n')}</pre>
-          </div>
-          <div className="D">
-            <a className="url" href={doc.uri_s}>Link</a>
+            <a href={doc.uri_s}>HAL</a>
+            <a href={doc.uri_s}>PDF</a>
           </div>
         </div>
       )
@@ -164,10 +175,9 @@ class FetchHAL extends React.Component<Props, State>{
               return { apiMaker };
             })
           }} />
-          <button onClick={() => { this.fetchHAL(); }}>Rechercher</button>
+          <button className="search-button" onClick={() => { this.fetchHAL(); }}>Rechercher</button>
         </div>
         <div className="block flex-col">
-          <span className="title-description">Résultat de recherche</span>
           <div className="scientific-publication-list flex-col">
             {this.state.scientificPublicationList}
           </div>

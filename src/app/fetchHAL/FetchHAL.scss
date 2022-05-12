@@ -1,28 +1,39 @@
 $space: 12px;
 $border-radius: 6px;
 
-$search-input-height: 30px;
+$search-input-height: 50px;
+
+/* Colors from Discord */
+
+$color-1: #202225;
+$color-2: #2f3136;
+$color-3: #36393f;
+$color-4: #40444b;
 
 .container {
-    padding: $space;
     height: 100%;
 
     .search-div {
         width: 100%;
         height: $search-input-height;
-        margin: $space 0px $space 0px;
+        padding: $space;
 
         .search-input {
             height: 100%;
             width: 50%;
             padding: 0px 10px 0px 10px;
             border-radius: $search-input-height;
+            margin: 0px $space 0px $space;
+        }
+
+        .search-button {
+            height: 100%;
+            padding: 0px 10px 0px 10px;
+            border-radius: $search-input-height;
         }
     }
 
     .block {
-        padding: 6px 0px 6px $space;
-        border-left: 1px solid #999;
         height: calc(100% - $search-input-height);
 
         .title-description {
@@ -57,16 +68,62 @@ $search-input-height: 30px;
             }
         }
 
-
         .scientific-publication-list {
             max-height: 100%;
             overflow-y: auto;
 
             .doc-elem {
-                height: 72px;
-                color: #ddd;
+                color: #ccc;
+                padding: $space 0px $space 0px;
 
-                .B {}
+                .A,
+                .B,
+                .C,
+                .D {
+                    height: 100%;
+                    overflow: hidden;
+
+                    .key-word {
+                        font-size: 11px;
+                        background-color: #555;
+                        padding: 3px 6px;
+                        border-radius: 6px;
+                        margin: 0px 3px 3px 0px;
+                    }
+
+                    .release-date {
+                        font-size: 12px;
+                        color: #ccc;
+                    }
+                }
+
+                .A {
+                    width: 48px;
+                    height: 48px;
+                    margin: 0px $space 0px $space;
+                    border-radius: 6px;
+
+                    img {
+                        width: 48px;
+                        height: 48px;
+                        filter: grayscale(50%);
+                    }
+                }
+
+                .B {
+                    width: calc(100% - 72px);
+                }
+            }
+
+            .doc-elem:hover {
+                background-color: $color-4;
+                color: #fff;
+
+                .A {
+                    img {
+                        filter: grayscale(10%);
+                    }
+                }
             }
         }
     }
