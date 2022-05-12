@@ -111,7 +111,22 @@ $color-4: #40444b;
                 }
 
                 .B {
-                    width: calc(100% - 72px);
+                    width: calc(100% - 72px - 72px);
+
+                    .doc-title {
+                        margin-bottom: 6px;
+                    }
+
+                    .keywords {
+                        align-items: flex-start;
+                        flex-wrap: wrap;
+                    }
+                }
+
+                .C {
+                    width: 72px;
+
+                    .button {}
                 }
             }
 

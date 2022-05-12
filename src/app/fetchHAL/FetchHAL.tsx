@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react';
-import httpService from '../http-service';
+import { httpService } from '../http-service';
 import localStorageService from '../localStoageService';
 import './FetchHAL.scss';
 import Moment from 'moment';
@@ -18,6 +18,7 @@ const fl = [
   'country_s',
   'docid',
   'doiId_s',
+  'halId_s',
   'instStructCountry_s',
   'keyword_s',
   'label_s',
@@ -140,23 +141,23 @@ class FetchHAL extends React.Component<Props, State>{
             }
           </div>
           <div className="B flex-col">
-            <div className="up">
-              <span>{doc.title_s[0]}</span>
+            <div className="flex">
+              <span className="doc-title">{doc.title_s[0]}</span>
             </div>
-            <div className="down">
-              <div>
+            <div className="flex">
+              <div className="keywords flex">
                 {
                   doc.keyword_s?.map((kw: string, index: number) => { return <span className="key-word" key={index}>{kw}</span> })
                 }
               </div>
-              <div>
-                <span className="release-date">{Moment(doc.releasedDate_tdate).format('MMMM YYYY')}</span>
-              </div>
+            </div>
+            <div className="flex">
+              <span className="release-date">{Moment(doc.releasedDate_tdate).format('MMMM YYYY')}</span>
             </div>
           </div>
-          <div className="C">
-            <a href={doc.uri_s}>HAL</a>
-            <a href={doc.uri_s}>PDF</a>
+          <div className="C flex-col">
+            <a className="button" target="_blank" rel="noreferrer" href={doc.uri_s}>HAL</a>
+            <a className="button" target="_blank" rel="noreferrer" href={`https://hal.archives-ouvertes.fr/${doc.halId_s}/document`}>PDF</a>
           </div>
         </div>
       )

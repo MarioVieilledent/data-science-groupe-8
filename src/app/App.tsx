@@ -2,8 +2,6 @@ import React from 'react';
 import './App.scss';
 import Home from './home/Home';
 import About from './about/About';
-import Fetch from './fetch/Fetch';
-import FetchGoogleScholar from './fetchGoogleScholar/FetchGoogleScholar';
 import FetchHAL from './fetchHAL/FetchHAL';
 import NoMatch from './noMatch/NoMatch';
 import {
@@ -45,16 +43,6 @@ class App extends React.Component<Props, State>{
           title: 'Infos',
           componentName: 'About',
           path: 'about'
-        }, {
-          component: Fetch,
-          title: 'Test récup.',
-          componentName: 'Fetch',
-          path: 'fetch'
-        }, {
-          component: FetchGoogleScholar,
-          title: 'Google Scholar',
-          componentName: 'FetchGoogleScholar',
-          path: 'fetchGoogleScholar'
         }, {
           component: FetchHAL,
           title: 'HAL',
