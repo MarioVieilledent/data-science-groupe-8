@@ -13,12 +13,14 @@ const entryPoints = {
 
 const fl = [
   'abstract_s',
+  'authFullName_s',
   'city_s',
   'conferenceEndDate_tdate',
   'conferenceStartDate_tdate',
   'country_s',
   'docid',
   'doiId_s',
+  'docType_s',
   'halId_s',
   'instStructCountry_s',
   'keyword_s',
@@ -33,6 +35,27 @@ const fl = [
   'title_s',
   'uri_s'
 ];
+
+const dicDocType: any = {
+  COMM: 'Communication dans un congrès',
+  THESE: 'Thèse',
+  ART: 'Article dans une revue',
+  UNDEFINED: 'Pré-publication, document de travail',
+  POSTER: 'Poster',
+  REPORT: 'Rapport',
+  COUV: 'Chapitre d\'ouvrage',
+  OTHER: 'Autre publication',
+  OUV: 'Ouvrage',
+  HDR: 'HDR',
+  DOUV: 'Direction d\'ouvrage',
+  IMG: 'Image',
+  PATENT: 'Brevet',
+  LECTURE: 'Cours',
+  MAP: 'Carte',
+  SOFTWARE: 'Logiciel',
+  VIDEO: 'Vidéo',
+  SON: 'Son'
+}
 
 class FetchHAL extends React.Component<Props, State>{
 
@@ -146,14 +169,15 @@ class FetchHAL extends React.Component<Props, State>{
         <div className="doc-elem flex" key={doc.docid}>
           <div className="A">
             {
-              doc.structCountry_s ? <img title={doc.structCountry_s} src={require(`../../assets/flag-icons-main/flags/1x1/${doc.structCountry_s[0]}.svg`)} alt="Icône du pays d'origine de la publication scientifique" /> : (
-                doc.instStructCountry_s ? <img title={doc.instStructCountry_s} src={require(`../../assets/flag-icons-main/flags/1x1/${doc.instStructCountry_s[0]}.svg`)} alt="Icône du pays d'origine de la publication scientifique" /> : ''
+              doc.structCountry_s ? <img title={doc.structCountry_s} src={require(`../../assets/flag-icons-main/flags/4x3/${doc.structCountry_s[0].toLowerCase()}.svg`)} alt="Icône du pays d'origine de la publication scientifique" /> : (
+                doc.instStructCountry_s ? <img title={doc.instStructCountry_s} src={require(`../../assets/flag-icons-main/flags/4x3/${doc.instStructCountry_s[0].toLowerCase()}.svg`)} alt="Icône du pays d'origine de la publication scientifique" /> : ''
               )
             }
           </div>
           <div className="B flex-col">
-            <div className="flex">
+            <div className="title-and-type flex">
               <span className="doc-title">{doc.title_s[0]}</span>
+              <span className="doc-type">{dicDocType[doc.docType_s]}</span>
             </div>
             <div className="flex">
               <div className="keywords flex">
@@ -164,6 +188,7 @@ class FetchHAL extends React.Component<Props, State>{
             </div>
             <div className="flex">
               <span className="release-date">{Moment(doc.releasedDate_tdate).format('MMMM YYYY')}</span>
+              <span className="authors">{doc.authFullName_s?.join(', ')}</span>
             </div>
           </div>
           <div className="C flex-col">

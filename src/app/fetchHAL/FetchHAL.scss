@@ -75,6 +75,7 @@ $color-4: #40444b;
             .doc-elem {
                 color: #ccc;
                 padding: $space 0px $space 0px;
+                transition: all 0.1s ease-in-out;
 
                 .A,
                 .B,
@@ -82,44 +83,57 @@ $color-4: #40444b;
                 .D {
                     height: 100%;
                     overflow: hidden;
-
-                    .key-word {
-                        font-size: 11px;
-                        background-color: #555;
-                        padding: 3px 6px;
-                        border-radius: 6px;
-                        margin: 0px 3px 3px 0px;
-                    }
-
-                    .release-date {
-                        font-size: 12px;
-                        color: #ccc;
-                    }
                 }
 
                 .A {
-                    width: 48px;
-                    height: 48px;
+                    width: 52px;
+                    height: 39px;
                     margin: 0px $space 0px $space;
                     border-radius: 6px;
 
                     img {
-                        width: 48px;
-                        height: 48px;
+                        width: 52px;
+                        height: 39px;
                         filter: grayscale(50%);
+                        transition: all 0.2s ease-in-out;
                     }
                 }
 
                 .B {
                     width: calc(100% - 72px - 72px);
 
-                    .doc-title {
-                        margin-bottom: 6px;
+                    .title-and-type {
+                        justify-content: space-between;
+
+                        .doc-title {
+                            margin-bottom: 6px;
+                        }
+                    }
+
+                    .doc-type {
+                        text-align: right;
+                        margin: 0px $space;
+                        font-size: 10px;
                     }
 
                     .keywords {
                         align-items: flex-start;
                         flex-wrap: wrap;
+
+                        .key-word {
+                            font-size: 11px;
+                            background-color: #555;
+                            padding: 3px 6px;
+                            border-radius: 6px;
+                            margin: 0px 3px 3px 0px;
+                        }
+                    }
+
+                    .release-date,
+                    .authors {
+                        font-size: 12px;
+                        color: #aaa;
+                        margin-right: $space;
                     }
                 }
 
